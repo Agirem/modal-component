@@ -1,11 +1,42 @@
 <template>
   <div class="min-h-screen bg-gray-50 font-inter p-4 overflow-y-auto">
-    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-sm p-6">
+    <div class="w-full mx-auto bg-white rounded-lg shadow-sm p-6">
       <!-- En-tête -->
-      <div class="flex items-center gap-6 mb-6">
-        <span class="text-sm text-left">Présentez-vous</span>
-        <span class="text-sm text-left">Autres contributions</span>
-        <span class="text-sm text-left">Contributions</span>
+      <div class="flex items-center justify-between mb-6">
+        <!-- Partie gauche avec le stepper -->
+        <div class="flex items-center gap-6">
+          <!-- Présentez-vous -->
+          <div class="flex items-center">
+            <img src="./assets/icons/user.svg" alt="user" class="w-5 h-5">
+            <span class="text-sm text-left mx-2 font-bold">Présentez-vous</span>
+            <img src="./assets/icons/arrow-step.svg" alt="arrow" class="w-6 h-6">
+          </div>
+
+          <!-- Autres contributions -->
+          <div class="flex items-center">
+            <img src="./assets/icons/mark-pen.svg" alt="mark-pen" class="w-5 h-5">
+            <span class="text-sm text-left mx-2">Autres contributions</span>
+            <img src="./assets/icons/arrow-step.svg" alt="arrow" class="w-6 h-6">
+          </div>
+
+          <!-- Contributions -->
+          <div class="flex items-center">
+            <img src="./assets/icons/briefcase.svg" alt="briefcase" class="w-5 h-5">
+            <span class="text-sm text-left mx-2">Contributions</span>
+          </div>
+        </div>
+
+        <!-- Partie droite avec les boutons -->
+        <div class="flex items-center ml-20">
+          <button class="flex items-center gap-2 border-none text-sm font-medium bg-transparent">
+            <img src="./assets/icons/Vector.png" alt="listen" class="w-5 h-5">
+            Écouter
+          </button>
+          <button class="flex items-center gap-2 text-sm font-medium bg-[#F4F4F5] text-black px-4 py-2 rounded-md">
+            <img src="./assets/icons/phone.svg" alt="phone" class="w-5 h-5">
+            N°Vert
+          </button>
+        </div>
       </div>
 
       <!-- Temps de remplissage -->
@@ -22,38 +53,34 @@
           <div class="flex gap-4">
             <label class="relative flex-1">
               <input type="radio" name="anonymat" value="oui" class="peer hidden">
-              <div class="border rounded-lg p-6 h-24 cursor-pointer peer-checked:border-black peer-checked:border-2">
-                <div class="flex items-start gap-3">
-                  <div class="w-4 h-4 mt-1 rounded-full border border-gray-300 peer-checked:bg-black relative">
-                    <img 
-                      src="./assets/icons/cocher.svg" 
-                      alt="coché" 
-                      class="absolute inset-0 w-4 h-4 opacity-0 peer-checked:opacity-100"
-                    >
-                  </div>
-                  <div class="flex flex-col">
-                    <span class="text-left font-medium">Oui</span>
-                    <span class="text-sm text-gray-500 text-left">Utilisation des données récupérées.</span>
-                  </div>
+              <div class="border rounded-lg p-6 h-24 cursor-pointer peer-checked:border-black peer-checked:border-2 relative">
+                <div class="absolute top-4 right-4 w-4 h-4 rounded-full border border-gray-300 peer-checked:bg-black">
+                  <img 
+                    src="./assets/icons/cocher.svg" 
+                    alt="coché" 
+                    class="absolute inset-0 w-4 h-4 opacity-0 peer-checked:opacity-100"
+                  >
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-left font-medium">Oui</span>
+                  <span class="text-sm text-gray-500 text-left">Utilisation des données<br>récupérées.</span>
                 </div>
               </div>
             </label>
 
             <label class="relative flex-1">
               <input type="radio" name="anonymat" value="non" class="peer hidden">
-              <div class="border rounded-lg p-6 h-24 cursor-pointer peer-checked:border-black peer-checked:border-2">
-                <div class="flex items-start gap-3">
-                  <div class="w-4 h-4 mt-1 rounded-full border border-gray-300 peer-checked:bg-black relative">
-                    <img 
-                      src="./assets/icons/cocher.svg" 
-                      alt="coché" 
-                      class="absolute inset-0 w-4 h-4 opacity-0 peer-checked:opacity-100"
-                    >
-                  </div>
-                  <div class="flex flex-col">
-                    <span class="text-left font-medium">Non</span>
-                    <span class="text-sm text-gray-500 text-left">Utilisation des données récupérées.</span>
-                  </div>
+              <div class="border rounded-lg p-6 h-24 cursor-pointer peer-checked:border-black peer-checked:border-2 relative">
+                <div class="absolute top-4 right-4 w-4 h-4 rounded-full border border-gray-300 peer-checked:bg-black">
+                  <img 
+                    src="./assets/icons/cocher.svg" 
+                    alt="coché" 
+                    class="absolute inset-0 w-4 h-4 opacity-0 peer-checked:opacity-100"
+                  >
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-left font-medium">Non</span>
+                  <span class="text-sm text-gray-500 text-left">Utilisation des données<br>récupérées.</span>
                 </div>
               </div>
             </label>
