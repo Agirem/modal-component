@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen max-w-screen-lg bg-gray-50 font-inter p-4 overflow-y-auto">
+  <div class="min-h-screen max-w-screen-lg bg-gray-50 font-inter p-4 overflow-y-auto relative">
     <Transition
       enter-active-class="transition-all duration-500 ease-out"
       enter-from-class="opacity-0 scale-95"
@@ -9,37 +9,30 @@
       leave-to-class="opacity-0 scale-95"
     >
       <div v-if="showForm" class="w-full mx-auto p-4 sm:p-6 lg:p-16 bg-white rounded-lg shadow-sm relative origin-center">
-        <!-- Bouton de fermeture -->
-        <button 
-          @click="showForm = false"
-          class="absolute right-4 top-4 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 "
-        >
-          <img src="./assets/icons/close-line.png" alt="fermer" class="w-12 h-12 text-black">
-        </button>
+        <CloseButton @click="showForm = false" />
 
         <!-- En-tête -->
         <div class="flex flex-col md:flex-row md:items-center justify-between mt-6 mb-6 gap-4">
           <!-- Partie gauche avec le stepper -->
           <div class="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 w-full md:w-auto">
-            <!-- Présentez-vous -->
-            <div class="flex items-center">
-              <img src="./assets/icons/user.svg" alt="user" class="w-5 h-5">
-              <span class="text-sm text-left mx-2 font-bold">Présentez-vous</span>
-              <img src="./assets/icons/arrow-step.svg" alt="arrow" class="w-6 h-6 hidden md:block">
-            </div>
-
-            <!-- Autres contributions -->
-            <div class="flex items-center">
-              <img src="./assets/icons/mark-pen.svg" alt="mark-pen" class="w-5 h-5">
-              <span class="text-sm text-left mx-2">Autres contributions</span>
-              <img src="./assets/icons/arrow-step.svg" alt="arrow" class="w-6 h-6 hidden md:block">
-            </div>
-
-            <!-- Contributions -->
-            <div class="flex items-center">
-              <img src="./assets/icons/briefcase.svg" alt="briefcase" class="w-5 h-5">
-              <span class="text-sm text-left mx-2">Contributions</span>
-            </div>
+            <StepperItem 
+              :icon-src="userIcon"
+              icon-alt="user"
+              label="Présentez-vous"
+              :is-active="true"
+              :show-arrow="true"
+            />
+            <StepperItem 
+              :icon-src="markPenIcon"
+              icon-alt="mark-pen"
+              label="Autres contributions"
+              :show-arrow="true"
+            />
+            <StepperItem 
+              :icon-src="briefcaseIcon"
+              icon-alt="briefcase"
+              label="Contributions"
+            />
           </div>
 
           <!-- Partie droite avec les boutons -->
@@ -67,39 +60,18 @@
           <div class="mb-6">
             <p class="mb-3 text-left font-bold">Souhaitez-vous soumettre votre contribution dans l'anonymat ?</p>
             <div class="flex flex-col md:flex-row gap-4">
-              <label class="relative w-[200px]">
-                <input type="radio" name="anonymat" value="oui" class="peer hidden">
-                <div class="border rounded-lg p-4 md:p-6 h-auto md:h-28 cursor-pointer peer-checked:border-black peer-checked:border-2 relative">
-                  <div class="absolute top-4 right-4 w-4 h-4 rounded-full border border-gray-300 peer-checked:bg-black">
-                    <img 
-                      src="./assets/icons/cocher.svg" 
-                      alt="coché" 
-                      class="absolute inset-0 w-4 h-4 opacity-0 peer-checked:opacity-100"
-                    >
-                  </div>
-                  <div class="flex flex-col">
-                    <span class="text-left font-medium mb-2">Oui</span>
-                    <span class="text-xs text-gray-500 text-left">Utilisation des données<br>récupérées.</span>
-                  </div>
-                </div>
-              </label>
-
-              <label class="relative w-[200px]">
-                <input type="radio" name="anonymat" value="non" class="peer hidden">
-                <div class="border rounded-lg p-4 md:p-6 h-auto md:h-28  cursor-pointer peer-checked:border-black peer-checked:border-2 relative">
-                  <div class="absolute top-4 right-4 w-4 h-4 rounded-full border border-gray-300 peer-checked:bg-black">
-                    <img 
-                      src="./assets/icons/cocher.svg" 
-                      alt="coché" 
-                      class="absolute inset-0 w-4 h-4 opacity-0 peer-checked:opacity-100"
-                    >
-                  </div>
-                  <div class="flex flex-col">
-                    <span class="text-left font-medium mb-2">Non</span>
-                    <span class="text-xs text-gray-500 text-left">Utilisation des données<br>récupérées.</span>
-                  </div>
-                </div>
-              </label>
+              <ChoiceCard
+                name="anonymat"
+                value="oui"
+                title="Oui"
+                description="Utilisation des données récupérées."
+              />
+              <ChoiceCard
+                name="anonymat"
+                value="non"
+                title="Non"
+                description="Utilisation des données récupérées."
+              />
             </div>
           </div>
 
@@ -218,6 +190,7 @@
           </p>
         </form>
       </div>
+      
     </Transition>
 
     <Transition
@@ -237,11 +210,48 @@
         </button>
       </div>
     </Transition>
+
+    <!-- Footer avec les liens sociaux -->
+    <div class=" flex justify-center items-center mt-3">
+      <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-gray-500 text-center">
+        <span class="text-xs sm:text-sm">Coded by OM</span>
+        <div class="flex items-center gap-3">
+          <a 
+            href="https://github.com/agirem" 
+            target="_blank" 
+            class="hover:text-[#161B1B] transition-colors duration-200"
+          >
+            <i class="fa-brands fa-github text-sm sm:text-lg"></i>
+          </a>
+          <a 
+            href="https://twitter.com/agirem1" 
+            target="_blank" 
+            class="hover:text-[#161B1B] transition-colors duration-200"
+          >
+            <i class="fa-brands fa-x-twitter text-sm sm:text-lg"></i>
+          </a>
+          <a 
+            href="https://linkedin.com/in/agirem1" 
+            target="_blank" 
+            class="hover:text-[#161B1B] transition-colors duration-200"
+          >
+            <i class="fa-brands fa-linkedin text-sm sm:text-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import CloseButton from './components/CloseButton.vue'
+import StepperItem from './components/StepperItem.vue'
+import ChoiceCard from './components/ChoiceCard.vue'
+
+import userIcon from './assets/icons/user.svg'
+import markPenIcon from './assets/icons/mark-pen.svg'
+import briefcaseIcon from './assets/icons/briefcase.svg'
 
 const showForm = ref(true)
 const submitForm = () => {
